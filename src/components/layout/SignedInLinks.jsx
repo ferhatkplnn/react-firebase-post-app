@@ -5,7 +5,7 @@ const SignedInLinks = () => {
   return (
     <>
       <div className="flex items-center text-lg font-semibold">
-        <NavigationLink to="/" text="New Project" />
+        <NavigationLink to="/create" text="New Project" />
         <NavigationLink to="/" text="Log Out" />
 
         <NavLink

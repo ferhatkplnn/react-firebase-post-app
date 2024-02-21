@@ -4,8 +4,8 @@ const SignedOutLinks = () => {
   return (
     <>
       <div className="flex items-center text-lg font-semibold">
-        <NavigationLink to="/" text="Sign Up" />
-        <NavigationLink to="/" text="Login" />
+        <NavigationLink to="/signup" text="Sign Up" />
+        <NavigationLink to="/signin" text="Login" />
       </div>
     </>
   );
