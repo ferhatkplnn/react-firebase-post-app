@@ -5,7 +5,7 @@ import SignedOutLinks from "./SignedOutLinks";
 const styles = {
   nav: `bg-slate-800 text-slate-200 shadow-xl`,
   container: `container mx-auto  flex justify-between items-center `,
-  logo: `text-6xl font-semibold`,
+  logo: `text-5xl font-semibold flex flex-col`,
 };
 
 const Navbar = () => {
@@ -13,7 +13,7 @@ const Navbar = () => {
     <nav className={styles.nav}>
       <div className={styles.container}>
         <Link className={styles.logo} to="/">
-          Splash Posts
+          <span className="text-2xl ">Splash</span> Posts
         </Link>
 
         <SignedOutLinks />
