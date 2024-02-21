@@ -2,6 +2,8 @@ import { createBrowserRouter } from "react-router-dom";
 import App from "../App";
 import Dashboard from "../components/dashboard/Dashboard";
 import ProjectDetails from "../components/projects/ProjectDetails";
+import SignIn from "../components/auth/SignIn";
+import SignUp from "../components/auth/SignUp";
 
 export const router = createBrowserRouter([
   {
@@ -10,6 +12,8 @@ export const router = createBrowserRouter([
     children: [
       { path: "/", element: <Dashboard /> },
       { path: "/project/:id", element: <ProjectDetails /> },
+      { path: "/signin", element: <SignIn /> },
+      { path: "/signup", element: <SignUp /> },
     ],
   },
 ]);
