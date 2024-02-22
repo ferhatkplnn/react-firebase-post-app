@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import Input from "../shared/Input";
 import { createProjectAsync } from "../../redux/projectSlice";
 import Loading from "../shared/Loading";
@@ -11,6 +12,7 @@ const SignIn = () => {
   const { isLoading, error } = useSelector((state) => state.project);
   const { user, userDetail } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -22,7 +24,7 @@ const SignIn = () => {
         ...inputs,
       })
     );
-    setInputs(initialState);
+    navigate("/");
   };
 
   const handleChange = (e) => {
