@@ -5,6 +5,7 @@ import ProjectDetails from "../components/projects/ProjectDetails";
 import SignIn from "../components/auth/SignIn";
 import SignUp from "../components/auth/SignUp";
 import CreateProject from "../components/projects/CreateProject";
+import { ProtectedRoute } from "./ProtectedRoute";
 
 export const router = createBrowserRouter([
   {
@@ -15,7 +16,12 @@ export const router = createBrowserRouter([
       { path: "/project/:id", element: <ProjectDetails /> },
       { path: "/signin", element: <SignIn /> },
       { path: "/signup", element: <SignUp /> },
-      { path: "/create", element: <CreateProject /> },
+      {
+        path: "/",
+        element: <ProtectedRoute />,
+        children: [{ path: "/create", element: <CreateProject /> }],
+      },
+      // { path: "/create", element: <CreateProject /> },
     ],
   },
 ]);
