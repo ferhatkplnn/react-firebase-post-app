@@ -1,12 +1,22 @@
 import { NavLink } from "react-router-dom";
 import NavigationLink from "../shared/NavigationLink";
+import { signOut } from "firebase/auth";
+import { auth } from "../../firebase";
 
 const SignedInLinks = () => {
+  const handleLogOut = async () => {
+    try {
+      await signOut(auth);
+      console.log("log out");
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <>
       <div className="flex items-center text-lg font-semibold">
         <NavigationLink to="/create" text="New Project" />
-        <NavigationLink to="/" text="Log Out" />
+        <NavigationLink onClick={handleLogOut} to="/" text="Log Out" />
 
         <NavLink
           to="/"
