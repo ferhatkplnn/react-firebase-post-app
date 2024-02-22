@@ -1,8 +1,8 @@
-import { useEffect } from "react";
-import { collection, onSnapshot, query } from "firebase/firestore";
+import { useEffect, useState } from "react";
+import { collection, doc, getDoc, onSnapshot, query } from "firebase/firestore";
 import { db } from "../firebase";
-import { setProjects } from "../redux/projectSlice";
-import { useDispatch } from "react-redux";
+import { selectProjectById, setProjects } from "../redux/projectSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 export const useRealTimeData = () => {
   const dispatch = useDispatch();
@@ -18,5 +18,34 @@ export const useRealTimeData = () => {
       dispatch(setProjects(projectsArr));
     });
     return () => unsubscribe();
-  }, []);
+  }, [dispatch]);
+};
+
+export const useSingleDataById = (id) => {
+  const project = useSelector((state) => selectProjectById(state, id));
+  const [projectData, setProjectData] = useState(false);
+
+  useEffect(() => {
+    const getProjectById = async () => {
+      const docRef = doc(db, "projects", id);
+      try {
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          setProjectData(docSnap.data());
+        } else {
+          setProjectData(null);
+        }
+      } catch {
+        console.log("Error fetching project data");
+      }
+    };
+
+    if (project) {
+      setProjectData(project);
+    } else {
+      getProjectById();
+    }
+  }, [id, project]);
+
+  return [projectData];
 };
