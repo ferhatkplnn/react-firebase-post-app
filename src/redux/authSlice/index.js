@@ -4,6 +4,7 @@ const authSlice = createSlice({
   name: "auth",
   initialState: {
     user: null,
+    userDetail: {},
     isFetching: true,
   },
   reducers: {
@@ -13,9 +14,12 @@ const authSlice = createSlice({
     setIsFetching: (state, action) => {
       state.isFetching = action.payload;
     },
+    setUserDetail: (state, action) => {
+      state.userDetail = action.payload;
+    },
   },
 });
 
-export const { setUser, setIsFetching } = authSlice.actions;
+export const { setUser, setIsFetching, setUserDetail } = authSlice.actions;
 
 export default authSlice.reducer;
