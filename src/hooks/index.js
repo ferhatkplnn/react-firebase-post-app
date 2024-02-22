@@ -1,5 +1,12 @@
 import { useEffect, useState } from "react";
-import { collection, doc, getDoc, onSnapshot, query } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  onSnapshot,
+  orderBy,
+  query,
+} from "firebase/firestore";
 import { db } from "../firebase";
 import {
   selectProjectById,
@@ -12,7 +19,7 @@ export const useRealTimeData = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const q = query(collection(db, "projects"));
+    const q = query(collection(db, "projects"), orderBy("createdAt", "desc"));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const projectsArr = [];
       querySnapshot.forEach((doc) => {
