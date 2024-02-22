@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useSingleDataById } from "../../hooks";
+import moment from "moment";
 
 const ProjectDetails = () => {
   const { id } = useParams();
@@ -23,8 +24,10 @@ const ProjectDetails = () => {
           <h1 className="text-4xl font-medium px-8">{projectData?.title}</h1>
           <p className="px-8">{projectData?.content}</p>
           <div className="bg-slate-100 px-8 py-4 italic text-sm text-slate-500/70">
-            <p>Posted by Mario Plummer</p>
-            <p>Toda at 12:36 PM</p>
+            <p>
+              Posted by {projectData?.firstName} {projectData?.lastName}
+            </p>
+            <p>{moment(projectData?.createdAt).format("lll")}</p>
           </div>
         </div>
       )}
