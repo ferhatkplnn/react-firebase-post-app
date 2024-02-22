@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 import { collection, doc, getDoc, onSnapshot, query } from "firebase/firestore";
 import { db } from "../firebase";
-import { selectProjectById, setProjects } from "../redux/projectSlice";
+import {
+  selectProjectById,
+  setIsFetching,
+  setProjects,
+} from "../redux/projectSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 export const useRealTimeData = () => {
@@ -11,11 +15,11 @@ export const useRealTimeData = () => {
     const q = query(collection(db, "projects"));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const projectsArr = [];
-      console.log(querySnapshot);
       querySnapshot.forEach((doc) => {
         projectsArr.push({ ...doc.data(), id: doc.id });
       });
       dispatch(setProjects(projectsArr));
+      dispatch(setIsFetching(false));
     });
     return () => unsubscribe();
   }, [dispatch]);
