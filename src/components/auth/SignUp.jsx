@@ -1,12 +1,10 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import Input from "../shared/Input";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../../firebase";
 import Loading from "../shared/Loading";
 import { doc, setDoc } from "firebase/firestore";
-import { setUserDetail } from "../../redux/authSlice";
 
 const SignUp = () => {
   const [inputs, setInputs] = useState({
@@ -18,7 +16,6 @@ const SignUp = () => {
   const [isError, setIsError] = useState(false);
   const [isPending, setIsPending] = useState(false);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -47,7 +44,6 @@ const SignUp = () => {
         };
 
         createUserDetail(userCredential.user.uid, userDetail);
-        dispatch(setUserDetail(userDetail));
         navigate("/");
       }
     } catch (error) {
