@@ -8,8 +8,10 @@ const ProjectDetails = () => {
 
   if (projectData === null) {
     return (
-      <div className="flex justify-center mt-20 text-3xl font-medium text-orange-400">
-        Something has gone wrong. Please try again later.
+      <div className="flex justify-center mt-20 bg-white w-1/2 mx-auto p-8 text-center drop-shadow-md rounded">
+        <p className="text-xl font-medium text-red-600">
+          Something has gone wrong. Please try again later.
+        </p>
       </div>
     );
   }
