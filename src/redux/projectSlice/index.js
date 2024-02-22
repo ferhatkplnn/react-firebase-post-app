@@ -40,6 +40,11 @@ const projectSlice = createSlice({
   },
 });
 
+export const selectProjectById = (state, id) => {
+  const { projects } = state.project;
+  return projects.find((project) => project.id === id);
+};
+
 export const { setProjects } = projectSlice.actions;
 
 export default projectSlice.reducer;
