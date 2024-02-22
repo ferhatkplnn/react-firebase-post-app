@@ -4,13 +4,13 @@ import SignedOutLinks from "./SignedOutLinks";
 import { useSelector } from "react-redux";
 
 const styles = {
-  nav: `bg-slate-800 text-slate-200 shadow-xl`,
-  container: `container mx-auto  flex justify-between items-center `,
+  nav: `bg-slate-800 text-slate-200 shadow-xl h-28 flex justify-between items-center w-screen`,
+  container: `container mx-auto h-full flex justify-between items-center `,
   logo: `text-5xl font-semibold flex flex-col`,
 };
 
 const Navbar = () => {
-  const { user } = useSelector((state) => state.auth);
+  const { user, isFetching } = useSelector((state) => state.auth);
   return (
     <nav className={styles.nav}>
       <div className={styles.container}>
@@ -18,7 +18,7 @@ const Navbar = () => {
           <span className="text-2xl ">Splash</span> Posts
         </Link>
 
-        {user ? <SignedInLinks /> : <SignedOutLinks />}
+        {isFetching ? "" : user ? <SignedInLinks /> : <SignedOutLinks />}
       </div>
     </nav>
   );
