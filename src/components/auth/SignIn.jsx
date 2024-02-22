@@ -1,19 +1,15 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import Input from "../shared/Input";
 import Loading from "../shared/Loading";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase";
-
-import { setUserDetailById } from "../../firebase/Actions";
 
 const SignIn = () => {
   const [inputs, setInputs] = useState({ email: "", password: "" });
   const [isError, setIsError] = useState(false);
   const [isPending, setIsPending] = useState(false);
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -35,7 +31,6 @@ const SignIn = () => {
       );
 
       if (userCredential.user) {
-        setUserDetailById(userCredential.user.uid, dispatch);
         navigate("/");
       }
     } catch (error) {
