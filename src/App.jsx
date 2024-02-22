@@ -5,6 +5,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase";
 import { useDispatch } from "react-redux";
 import { setIsFetching, setUser } from "./redux/authSlice";
+import { setUserDetailById } from "./firebase/Actions";
 
 function App() {
   const dispatch = useDispatch();
@@ -13,6 +14,7 @@ function App() {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         dispatch(setUser(user.uid));
+        setUserDetailById(user.uid, dispatch);
         dispatch(setIsFetching(false));
         return;
       }
