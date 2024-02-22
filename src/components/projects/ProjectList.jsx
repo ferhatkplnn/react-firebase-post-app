@@ -2,10 +2,16 @@ import { Link } from "react-router-dom";
 import { useRealTimeData } from "../../hooks";
 import ProjectSummary from "./ProjectSummary";
 import { useSelector } from "react-redux";
+import Loading from "../shared/Loading";
 
 const ProjectList = () => {
-  const { projects } = useSelector((state) => state.project);
+  const { projects, isFetching } = useSelector((state) => state.project);
+
   useRealTimeData();
+
+  if (isFetching) {
+    return <Loading />;
+  }
 
   return (
     <>
