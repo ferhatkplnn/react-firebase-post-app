@@ -1,18 +1,28 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Input from "../shared/Input";
+import { createProjectAsync } from "../../redux/projectSlice";
+
+const initialState = { title: "", content: "" };
 
 const SignIn = () => {
-  const [inputs, setInputs] = useState({ title: "", content: "" });
+  const [inputs, setInputs] = useState(initialState);
+  const { isLoading, error } = useSelector((state) => state.project);
+  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(e);
-    console.log(inputs);
+    dispatch(createProjectAsync(inputs));
+    setInputs(initialState);
   };
 
   const handleChange = (e) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
+
+  if (error) {
+    return <p>Error creating project</p>;
+  }
 
   return (
     <div className="container mx-auto bg-white p-8 max-w-5xl mt-16 rounded-sm drop-shadow-lg">
@@ -38,6 +48,11 @@ const SignIn = () => {
           Create
         </button>
       </form>
+      {isLoading && (
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 ">
+          Creating...
+        </div>
+      )}
     </div>
   );
 };
