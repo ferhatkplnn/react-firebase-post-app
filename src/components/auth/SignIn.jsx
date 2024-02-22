@@ -1,15 +1,19 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import Input from "../shared/Input";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebase";
 import Loading from "../shared/Loading";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth, db } from "../../firebase";
+import { doc, getDoc } from "firebase/firestore";
+import { setUserDetail } from "../../redux/authSlice";
 
 const SignIn = () => {
   const [inputs, setInputs] = useState({ email: "", password: "" });
   const [isError, setIsError] = useState(false);
   const [isPending, setIsPending] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -29,7 +33,11 @@ const SignIn = () => {
         loginEmail,
         loginPassword
       );
-      if (userCredential.user) navigate("/");
+
+      if (userCredential.user) {
+        getUserDetailById(userCredential.user.uid);
+        navigate("/");
+      }
     } catch (error) {
       if (error.code === "auth/invalid-credential") {
         setIsError(true);
@@ -38,6 +46,18 @@ const SignIn = () => {
       }
     } finally {
       setIsPending(false);
+    }
+  };
+
+  const getUserDetailById = async (id) => {
+    try {
+      const docRef = doc(db, "users", id);
+      const docSap = await getDoc(docRef);
+      if (docSap.exists()) {
+        dispatch(setUserDetail(docSap.data()));
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
 
