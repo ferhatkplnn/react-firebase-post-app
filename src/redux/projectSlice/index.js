@@ -14,7 +14,8 @@ export const createProjectAsync = createAsyncThunk(
 
 const initialState = {
   projects: [],
-  isLoading: false,
+  isLoading: false, // for create project
+  isFetching: true, // for dashboard
   error: false,
 };
 
@@ -24,6 +25,9 @@ const projectSlice = createSlice({
   reducers: {
     setProjects: (state, actions) => {
       state.projects = actions.payload;
+    },
+    setIsFetching: (state, action) => {
+      state.isFetching = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -45,6 +49,6 @@ export const selectProjectById = (state, id) => {
   return projects.find((project) => project.id === id);
 };
 
-export const { setProjects } = projectSlice.actions;
+export const { setProjects, setIsFetching } = projectSlice.actions;
 
 export default projectSlice.reducer;
