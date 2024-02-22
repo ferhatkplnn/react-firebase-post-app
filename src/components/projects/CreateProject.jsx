@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Input from "../shared/Input";
 import { createProjectAsync } from "../../redux/projectSlice";
+import Loading from "../shared/Loading";
 
 const initialState = { title: "", content: "" };
 
@@ -50,7 +51,7 @@ const SignIn = () => {
       </form>
       {isLoading && (
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 ">
-          Creating...
+          <Loading />
         </div>
       )}
     </div>
