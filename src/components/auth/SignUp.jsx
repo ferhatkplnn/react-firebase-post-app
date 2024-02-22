@@ -2,8 +2,9 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Input from "../shared/Input";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebase";
+import { auth, db } from "../../firebase";
 import Loading from "../shared/Loading";
+import { doc, setDoc } from "firebase/firestore";
 
 const SignUp = () => {
   const [inputs, setInputs] = useState({
@@ -34,7 +35,17 @@ const SignUp = () => {
         loginEmail,
         loginPassword
       );
-      if (userCredential.user) navigate("/");
+
+      if (userCredential.user) {
+        const useDetail = {
+          firstName: inputs.firstName,
+          lastName: inputs.lastName,
+          initials: inputs.firstName[0] + inputs.lastName[0],
+        };
+        createUserDetail(userCredential.user.uid, useDetail);
+
+        navigate("/");
+      }
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {
         console.log("auth/email-already-in-use");
@@ -44,6 +55,14 @@ const SignUp = () => {
       }
     } finally {
       setIsPending(false);
+    }
+  };
+
+  const createUserDetail = async (uid, data) => {
+    try {
+      await setDoc(doc(db, "users", uid), data);
+    } catch (error) {
+      console.log(error);
     }
   };
 
