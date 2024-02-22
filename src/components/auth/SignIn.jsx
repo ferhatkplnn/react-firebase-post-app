@@ -4,9 +4,9 @@ import { useDispatch } from "react-redux";
 import Input from "../shared/Input";
 import Loading from "../shared/Loading";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth, db } from "../../firebase";
-import { doc, getDoc } from "firebase/firestore";
-import { setUserDetail } from "../../redux/authSlice";
+import { auth } from "../../firebase";
+
+import { setUserDetailById } from "../../firebase/Actions";
 
 const SignIn = () => {
   const [inputs, setInputs] = useState({ email: "", password: "" });
@@ -35,7 +35,7 @@ const SignIn = () => {
       );
 
       if (userCredential.user) {
-        getUserDetailById(userCredential.user.uid);
+        setUserDetailById(userCredential.user.uid, dispatch);
         navigate("/");
       }
     } catch (error) {
@@ -46,18 +46,6 @@ const SignIn = () => {
       }
     } finally {
       setIsPending(false);
-    }
-  };
-
-  const getUserDetailById = async (id) => {
-    try {
-      const docRef = doc(db, "users", id);
-      const docSap = await getDoc(docRef);
-      if (docSap.exists()) {
-        dispatch(setUserDetail(docSap.data()));
-      }
-    } catch (error) {
-      console.log(error);
     }
   };
 
