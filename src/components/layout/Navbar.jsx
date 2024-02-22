@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import SignedInLinks from "./SignedInLinks";
 import SignedOutLinks from "./SignedOutLinks";
+import { useSelector } from "react-redux";
 
 const styles = {
   nav: `bg-slate-800 text-slate-200 shadow-xl`,
@@ -9,6 +10,7 @@ const styles = {
 };
 
 const Navbar = () => {
+  const { user } = useSelector((state) => state.auth);
   return (
     <nav className={styles.nav}>
       <div className={styles.container}>
@@ -16,8 +18,7 @@ const Navbar = () => {
           <span className="text-2xl ">Splash</span> Posts
         </Link>
 
-        <SignedOutLinks />
-        <SignedInLinks />
+        {user ? <SignedInLinks /> : <SignedOutLinks />}
       </div>
     </nav>
   );
