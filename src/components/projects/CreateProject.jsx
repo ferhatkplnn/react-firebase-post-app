@@ -9,11 +9,19 @@ const initialState = { title: "", content: "" };
 const SignIn = () => {
   const [inputs, setInputs] = useState(initialState);
   const { isLoading, error } = useSelector((state) => state.project);
+  const { user, userDetail } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(createProjectAsync(inputs));
+    dispatch(
+      createProjectAsync({
+        authorId: user,
+        createdAt: Date.now(),
+        ...userDetail,
+        ...inputs,
+      })
+    );
     setInputs(initialState);
   };
 
