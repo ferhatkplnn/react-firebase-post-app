@@ -7,3 +7,7 @@
     @apply bg-sky-400 overflow-x-hidden;
   }
 }
+
+.active {
+  @apply bg-slate-600;
+}

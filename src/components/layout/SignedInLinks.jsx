@@ -10,7 +10,7 @@ const SignedInLinks = () => {
   const dispatch = useDispatch();
 
   const handleLogOut = async () => {
-    if (!confirm("Are you sure to log out?")) return;
+    if (!confirm("Are you sure to log out?")) return false;
     dispatch(
       showToast({
         type: "logout",
@@ -27,7 +27,7 @@ const SignedInLinks = () => {
     <>
       <div className="flex items-center text-lg font-semibold">
         <NavigationLink to="/create" text="New Project" />
-        <NavigationLink onClick={handleLogOut} to="/" text="Log Out" />
+        <NavigationLink onClick={handleLogOut} text="Log Out" />
 
         <NavLink
           to="/"
