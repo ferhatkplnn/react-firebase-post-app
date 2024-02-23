@@ -11,23 +11,20 @@ const SignIn = () => {
   const [isPending, setIsPending] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setIsPending(true);
-    loginEmailPassword();
-  };
-
   const handleChange = (e) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
 
-  const loginEmailPassword = async () => {
+  const handleSignIn = async (e) => {
+    e.preventDefault();
+    setIsPending(true);
+
     try {
-      const { email: loginEmail, password: loginPassword } = inputs;
+      const { email, password } = inputs;
       const userCredential = await signInWithEmailAndPassword(
         auth,
-        loginEmail,
-        loginPassword
+        email,
+        password
       );
 
       if (userCredential.user) {
@@ -37,7 +34,7 @@ const SignIn = () => {
       if (error.code === "auth/invalid-credential") {
         setIsError(true);
       } else {
-        console.log(error);
+        console.error(error);
       }
     } finally {
       setIsPending(false);
@@ -46,7 +43,7 @@ const SignIn = () => {
 
   return (
     <div className="container mx-auto bg-white p-8 max-w-xl mt-16 rounded-sm drop-shadow-lg">
-      <form onSubmit={handleSubmit} className="flex flex-col space-y-8">
+      <form onSubmit={handleSignIn} className="flex flex-col space-y-8">
         <h1 className="text-4xl font-sans font-medium flex space-x-3">
           <span>Sign Up</span> {isPending && <Loading />}
         </h1>
