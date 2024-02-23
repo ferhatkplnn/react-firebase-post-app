@@ -2,10 +2,9 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Input from "../shared/Input";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth, db } from "../../firebase";
+import { auth } from "../../firebase";
 import Loading from "../shared/Loading";
-import { doc, setDoc } from "firebase/firestore";
-import { createUserDetail } from "../../firebase/Actions";
+import { createNotification, createUserDetail } from "../../firebase/Actions";
 
 const SignUp = () => {
   const [inputs, setInputs] = useState({
@@ -46,6 +45,14 @@ const SignUp = () => {
         };
 
         createUserDetail(userCredential.user.uid, userDetail);
+
+        const notificationDetail = {
+          content: "Joined the party",
+          time: Date.now(),
+          user: inputs.firstName + " " + inputs.lastName,
+        };
+        createNotification(notificationDetail);
+
         navigate("/");
       }
     } catch (error) {
