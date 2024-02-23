@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Input from "../shared/Input";
 import Loading from "../shared/Loading";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebase";
+import { auth } from "../../firebase/config/firebase";
 
 const SignIn = () => {
   const [inputs, setInputs] = useState({ email: "", password: "" });

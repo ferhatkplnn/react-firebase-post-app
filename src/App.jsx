@@ -2,7 +2,7 @@ import { Outlet } from "react-router-dom";
 import Navbar from "./components/layout/Navbar";
 import { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "./firebase";
+import { auth } from "./firebase/config/firebase";
 import { useDispatch } from "react-redux";
 import { setIsFetching, setUser } from "./redux/authSlice";
 import { setUserDetailById } from "./firebase/Actions";

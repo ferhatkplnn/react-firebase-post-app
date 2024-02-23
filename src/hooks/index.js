@@ -8,7 +8,7 @@ import {
   orderBy,
   query,
 } from "firebase/firestore";
-import { db } from "../firebase";
+import { db } from "../firebase/config/firebase";
 import {
   selectProjectById,
   setIsFetching,

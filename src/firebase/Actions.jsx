@@ -1,6 +1,6 @@
 import { addDoc, collection, doc, getDoc, setDoc } from "firebase/firestore";
 import { setUserDetail } from "../redux/authSlice";
-import { db } from "../firebase";
+import { db } from "./config/firebase";
 
 export const setUserDetailById = async (id, dispatch) => {
   try {

@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import NavigationLink from "../shared/NavigationLink";
 import { signOut } from "firebase/auth";
-import { auth } from "../../firebase";
+import { auth } from "../../firebase/config/firebase";
 import { useSelector } from "react-redux";
 
 const SignedInLinks = () => {

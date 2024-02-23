@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Input from "../shared/Input";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebase";
+import { auth } from "../../firebase/config/firebase";
 import Loading from "../shared/Loading";
 import { createNotification, createUserDetail } from "../../firebase/Actions";
 
