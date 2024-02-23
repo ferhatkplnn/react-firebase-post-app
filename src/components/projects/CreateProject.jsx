@@ -5,6 +5,7 @@ import Input from "../shared/Input";
 import { createProjectAsync } from "../../redux/projectSlice";
 import Loading from "../shared/Loading";
 import { createNotification } from "../../firebase/Actions";
+import { showToast } from "../../redux/uiSlice";
 
 const initialState = { title: "", content: "" };
 
@@ -32,6 +33,7 @@ const SignIn = () => {
       user: userDetail.firstName + " " + userDetail.lastName,
     };
     createNotification(notificationDetail);
+    dispatch(showToast({ type: "added", message: "Created Project!" }));
     navigate("/");
   };
 
