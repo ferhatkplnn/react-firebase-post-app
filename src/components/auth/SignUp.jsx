@@ -5,6 +5,7 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth, db } from "../../firebase";
 import Loading from "../shared/Loading";
 import { doc, setDoc } from "firebase/firestore";
+import { createUserDetail } from "../../firebase/Actions";
 
 const SignUp = () => {
   const [inputs, setInputs] = useState({
@@ -36,6 +37,7 @@ const SignUp = () => {
         loginPassword
       );
 
+      // Create user detail
       if (userCredential.user) {
         const userDetail = {
           firstName: inputs.firstName,
@@ -48,21 +50,12 @@ const SignUp = () => {
       }
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {
-        console.log("auth/email-already-in-use");
         setIsError(true);
       } else {
-        console.log(error);
+        console.error(error);
       }
     } finally {
       setIsPending(false);
-    }
-  };
-
-  const createUserDetail = async (uid, data) => {
-    try {
-      await setDoc(doc(db, "users", uid), data);
-    } catch (error) {
-      console.log(error);
     }
   };
 
