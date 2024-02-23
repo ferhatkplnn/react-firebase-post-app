@@ -6,14 +6,12 @@ import { useSelector } from "react-redux";
 
 const SignedInLinks = () => {
   const { userDetail } = useSelector((state) => state.auth);
-  console.log(userDetail);
 
   const handleLogOut = async () => {
     try {
       await signOut(auth);
-      console.log("log out");
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
   return (

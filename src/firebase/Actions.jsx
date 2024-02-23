@@ -10,7 +10,7 @@ export const setUserDetailById = async (id, dispatch) => {
       dispatch(setUserDetail(docSap.data()));
     }
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 
@@ -18,7 +18,7 @@ export const createUserDetail = async (uid, data) => {
   try {
     await setDoc(doc(db, "users", uid), data);
   } catch (error) {
-    console.log(error);
+    console.error(error);
   }
 };
 

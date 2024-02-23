@@ -58,9 +58,7 @@ export const useRealTimeNotifications = () => {
           ...doc.data(),
           id: doc.id,
         }));
-        console.log(notificationsArr);
         dispatch(setNotification(notificationsArr));
-        // dispatch(setIsFetching(false));
       });
 
       return () => unsubscribe();
