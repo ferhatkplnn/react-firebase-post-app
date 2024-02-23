@@ -3,6 +3,7 @@ import {
   collection,
   doc,
   getDoc,
+  limit,
   onSnapshot,
   orderBy,
   query,
@@ -14,6 +15,7 @@ import {
   setProjects,
 } from "../redux/projectSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { setNotification } from "../redux/notificationSlice";
 
 export const useRealTimeData = () => {
   const dispatch = useDispatch();
@@ -30,6 +32,35 @@ export const useRealTimeData = () => {
         }));
         dispatch(setProjects(projectsArr));
         dispatch(setIsFetching(false));
+      });
+
+      return () => unsubscribe();
+    };
+
+    fetchProjects();
+  }, [dispatch]);
+};
+
+export const useRealTimeNotifications = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      const notificationsCollection = collection(db, "notifications");
+      const q = query(
+        notificationsCollection,
+        orderBy("time", "desc"),
+        limit(8)
+      );
+
+      const unsubscribe = onSnapshot(q, (querySnapshot) => {
+        const notificationsArr = querySnapshot.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        }));
+        console.log(notificationsArr);
+        dispatch(setNotification(notificationsArr));
+        // dispatch(setIsFetching(false));
       });
 
       return () => unsubscribe();
