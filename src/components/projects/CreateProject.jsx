@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import Input from "../shared/Input";
 import { createProjectAsync } from "../../redux/projectSlice";
 import Loading from "../shared/Loading";
+import { createNotification } from "../../firebase/Actions";
 
 const initialState = { title: "", content: "" };
 
@@ -24,6 +25,13 @@ const SignIn = () => {
         ...inputs,
       })
     );
+
+    const notificationDetail = {
+      content: "Added a new project",
+      time: Date.now(),
+      user: userDetail.firstName + " " + userDetail.lastName,
+    };
+    createNotification(notificationDetail);
     navigate("/");
   };
 
