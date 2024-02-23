@@ -1,4 +1,4 @@
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { addDoc, collection, doc, getDoc, setDoc } from "firebase/firestore";
 import { setUserDetail } from "../redux/authSlice";
 import { db } from "../firebase";
 
@@ -20,4 +20,18 @@ export const createUserDetail = async (uid, data) => {
   } catch (error) {
     console.log(error);
   }
+};
+
+export const createNotification = async (data) => {
+  try {
+    await addDoc(collection(db, "notifications"), { ...data });
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const createProject = async (data) => {
+  await addDoc(collection(db, "projects"), {
+    ...data,
+  });
 };
