@@ -76,9 +76,12 @@ const SignUp = () => {
   };
 
   return (
-    <div className="container mx-auto bg-white p-8 max-w-xl mt-16 rounded-sm drop-shadow-lg">
-      <form onSubmit={handleSubmit} className="flex flex-col space-y-8">
-        <h1 className="text-4xl font-sans font-medium flex space-x-3">
+    <div className="mx-auto max-sm:max-w-xs bg-white p-8 md:max-w-xl mt-4 md:mt-8 rounded-sm drop-shadow-lg">
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col space-y-4 md:space-y-8"
+      >
+        <h1 className="text-3xl md:text-4xl font-sans font-medium flex space-x-3">
           <span>Sign Up</span> {isPending && <Loading />}
         </h1>
 

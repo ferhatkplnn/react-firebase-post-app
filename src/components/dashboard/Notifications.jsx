@@ -8,16 +8,18 @@ const Notifications = () => {
   useRealTimeNotifications();
   return (
     <>
-      <div className="bg-white p-8 flex flex-col rounded-lg drop-shadow-xl">
-        <h2 className="text-4xl font-medium mb-10">Notification</h2>
-        <div className="flex flex-col space-y-4">
+      <div className="bg-white p-8 flex flex-col rounded drop-shadow-xl">
+        <h2 className="text-3xl md:text-4xl font-medium mb-5 md:mb-10 ">
+          Notification
+        </h2>
+        <div className="flex flex-col space-y-2 md:space-y-4">
           {notifications.map((notification) => (
             <div key={notification?.id}>
-              <p className="text-xl">
+              <p className="text-md md:text-xl">
                 <span className="text-red-500">{notification?.user}</span>{" "}
                 {notification?.content}
               </p>
-              <p className="text-slate-400 text-lg">
+              <p className="text-slate-400 text-xs md:text-lg">
                 {moment(notification?.time).fromNow()}
               </p>
             </div>

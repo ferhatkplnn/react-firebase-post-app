@@ -4,8 +4,8 @@ import SignedOutLinks from "./SignedOutLinks";
 import { useSelector } from "react-redux";
 
 const styles = {
-  nav: `bg-slate-800 text-slate-200 shadow-xl h-28 flex justify-between items-center w-screen`,
-  container: `container mx-auto h-full flex justify-between items-center `,
+  nav: `bg-slate-800 text-slate-200 shadow-xl min-h-28  px-2 w-screen`,
+  container: `container mx-auto h-full flex flex-col md:flex-row md:justify-between items-center pt-2`,
   logo: `text-5xl font-semibold flex flex-col`,
 };
 

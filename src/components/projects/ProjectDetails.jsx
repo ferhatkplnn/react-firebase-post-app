@@ -20,8 +20,10 @@ const ProjectDetails = () => {
   return (
     <>
       {projectData && (
-        <div className="container mx-auto mt-8  pt-8 bg-white w-3/5 flex flex-col space-y-8 drop-shadow-xl rounded-lg overflow-hidden">
-          <h1 className="text-4xl font-medium px-8">{projectData?.title}</h1>
+        <div className="mx-auto mt-4 md:mt-8  pt-8 bg-white w-11/12 md:w-3/5 flex flex-col space-y-4 md:space-y-8 drop-shadow-xl rounded overflow-hidden">
+          <h1 className="text-3xl md:text-4xl font-medium px-8">
+            {projectData?.title}
+          </h1>
           <p className="px-8">{projectData?.content}</p>
           <div className="bg-slate-100 px-8 py-4 italic text-sm text-slate-500/70">
             <p>

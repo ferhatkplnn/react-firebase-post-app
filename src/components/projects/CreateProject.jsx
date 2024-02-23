@@ -46,9 +46,14 @@ const SignIn = () => {
   }
 
   return (
-    <div className="container mx-auto bg-white p-8 max-w-5xl mt-16 rounded-sm drop-shadow-lg">
-      <form onSubmit={handleSubmit} className="flex flex-col space-y-12">
-        <h1 className="text-4xl font-sans font-medium">Create a New Project</h1>
+    <div className="mx-auto bg-white p-8 w-11/12 md:max-w-5xl mt-4 md:mt-16 rounded drop-shadow-lg">
+      <form
+        onSubmit={handleSubmit}
+        className="flex flex-col space-y-6 md:space-y-12"
+      >
+        <h1 className="text-3xl md:text-4xl font-sans font-medium">
+          Create a New Project
+        </h1>
 
         <Input
           type="text"
