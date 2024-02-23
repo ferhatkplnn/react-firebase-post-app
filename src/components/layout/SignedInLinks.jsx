@@ -27,11 +27,16 @@ const SignedInLinks = () => {
     <>
       <div className="flex items-center text-lg font-semibold">
         <NavigationLink to="/create" text="New Project" />
-        <NavigationLink onClick={handleLogOut} text="Log Out" />
+        <a
+          className="text-sm md:text-lg py-8 px-5 hover:bg-slate-700 cursor-pointer"
+          onClick={handleLogOut}
+        >
+          Log Out
+        </a>
 
         <NavLink
           to="/"
-          className="bg-orange-800 h-16 w-16 rounded-full flex items-center justify-center mx-4 "
+          className="!bg-orange-800 h-16 w-16 rounded-full flex items-center justify-center mx-4 "
         >
           {userDetail?.initials?.toUpperCase()}
         </NavLink>
