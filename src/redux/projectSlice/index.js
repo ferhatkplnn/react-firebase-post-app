@@ -1,15 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { addDoc, collection } from "firebase/firestore";
-import { db } from "../../firebase";
+import { createProject } from "../../firebase/Actions";
 
 export const createProjectAsync = createAsyncThunk(
   "project/createProjectAsync",
-  async (data) => {
-    const res = await addDoc(collection(db, "projects"), {
-      ...data,
-    });
-    console.log(res);
-  }
+  createProject
 );
 
 const initialState = {
