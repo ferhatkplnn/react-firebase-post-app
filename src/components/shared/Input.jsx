@@ -2,6 +2,7 @@ const Input = ({ type, placeholder, value, handleChange, ...props }) => {
   return (
     <>
       <input
+        required
         value={value}
         onChange={handleChange}
         type={type}
