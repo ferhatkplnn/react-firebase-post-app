@@ -19,16 +19,23 @@ export const useRealTimeData = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const q = query(collection(db, "projects"), orderBy("createdAt", "desc"));
-    const unsubscribe = onSnapshot(q, (querySnapshot) => {
-      const projectsArr = [];
-      querySnapshot.forEach((doc) => {
-        projectsArr.push({ ...doc.data(), id: doc.id });
+    const fetchProjects = async () => {
+      const projectsCollection = collection(db, "projects");
+      const q = query(projectsCollection, orderBy("createdAt", "desc"));
+
+      const unsubscribe = onSnapshot(q, (querySnapshot) => {
+        const projectsArr = querySnapshot.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        }));
+        dispatch(setProjects(projectsArr));
+        dispatch(setIsFetching(false));
       });
-      dispatch(setProjects(projectsArr));
-      dispatch(setIsFetching(false));
-    });
-    return () => unsubscribe();
+
+      return () => unsubscribe();
+    };
+
+    fetchProjects();
   }, [dispatch]);
 };
 
@@ -39,15 +46,12 @@ export const useSingleDataById = (id) => {
   useEffect(() => {
     const getProjectById = async () => {
       const docRef = doc(db, "projects", id);
+
       try {
         const docSnap = await getDoc(docRef);
-        if (docSnap.exists()) {
-          setProjectData(docSnap.data());
-        } else {
-          setProjectData(null);
-        }
-      } catch {
-        console.log("Error fetching project data");
+        setProjectData(docSnap.exists() ? docSnap.data() : null);
+      } catch (error) {
+        console.error("Error fetching project data:", error);
       }
     };
 
