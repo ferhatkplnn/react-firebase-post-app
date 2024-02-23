@@ -1,15 +1,18 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import Input from "../shared/Input";
 import Loading from "../shared/Loading";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase/config/firebase";
+import { showToast } from "../../redux/uiSlice";
 
 const SignIn = () => {
   const [inputs, setInputs] = useState({ email: "", password: "" });
   const [isError, setIsError] = useState(false);
   const [isPending, setIsPending] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleChange = (e) => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
@@ -28,6 +31,12 @@ const SignIn = () => {
       );
 
       if (userCredential.user) {
+        dispatch(
+          showToast({
+            type: "login",
+            message: `You are login!`,
+          })
+        );
         navigate("/");
       }
     } catch (error) {
@@ -45,7 +54,7 @@ const SignIn = () => {
     <div className="container mx-auto bg-white p-8 max-w-xl mt-16 rounded-sm drop-shadow-lg">
       <form onSubmit={handleSignIn} className="flex flex-col space-y-8">
         <h1 className="text-4xl font-sans font-medium flex space-x-3">
-          <span>Sign Up</span> {isPending && <Loading />}
+          <span>Sign In</span> {isPending && <Loading />}
         </h1>
 
         <Input
