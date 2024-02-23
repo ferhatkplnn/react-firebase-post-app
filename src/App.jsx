@@ -3,11 +3,13 @@ import Navbar from "./components/layout/Navbar";
 import { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase/config/firebase";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setIsFetching, setUser } from "./redux/authSlice";
 import { setUserDetailById } from "./firebase/Actions";
+import Toast from "./components/shared/Toast";
 
 function App() {
+  const { toastIsShow, type } = useSelector((state) => state.ui);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -29,6 +31,7 @@ function App() {
     <>
       <Navbar />
       <Outlet />
+      {toastIsShow && <Toast key={type} />}
     </>
   );
 }
