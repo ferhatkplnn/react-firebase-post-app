@@ -5,6 +5,8 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase/config/firebase";
 import Loading from "../shared/Loading";
 import { createNotification, createUserDetail } from "../../firebase/Actions";
+import { useDispatch } from "react-redux";
+import { showToast } from "../../redux/uiSlice";
 
 const SignUp = () => {
   const [inputs, setInputs] = useState({
@@ -15,6 +17,7 @@ const SignUp = () => {
   });
   const [isError, setIsError] = useState(false);
   const [isPending, setIsPending] = useState(false);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
@@ -54,6 +57,12 @@ const SignUp = () => {
         createNotification(notificationDetail);
 
         navigate("/");
+        dispatch(
+          showToast({
+            type: "created",
+            message: "Account created successfully!",
+          })
+        );
       }
     } catch (error) {
       if (error.code === "auth/email-already-in-use") {
