@@ -26,8 +26,8 @@ I wrote this application to learn firebase a little bit.
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/user/application.git
-cd application
+https://github.com/ferhatkplnn/react-firebase-post-app.git
+cd react-firebase-post-app
 ```
 2. Install the required dependencies:
 
